@@ -13,7 +13,12 @@ const TextInputField = ({ label, placeholder, value, onChangeText }: Props) => {
   return (
     <View style={styles.textInputContainer}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.input} placeholder={placeholder} value={value} />
+      <TextInput
+        style={styles.input}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
+      />
     </View>
   );
 };
@@ -34,6 +39,7 @@ const styles = StyleSheet.create({
 
   textInputContainer: {
     width: "100%",
+    marginBottom: variables.margin.large,
   },
   label: {
     fontFamily: variables.fonts.semiBold,
