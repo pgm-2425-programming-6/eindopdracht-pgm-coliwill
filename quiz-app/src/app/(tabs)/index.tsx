@@ -4,18 +4,19 @@ import { Link } from "expo-router";
 import AppLoading from "expo-app-loading";
 import useCustomFonts from "@functional/useFonts";
 import { variables } from "@/style/theme";
+import Button from "@design/Button/Button";
 
 const index = () => {
   const fontsLoaded = useCustomFonts();
 
-if (!fontsLoaded) {
+  if (!fontsLoaded) {
     return <AppLoading />;
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>index</Text>
-      <Link href="/two">two</Link>
+        <Button onPress={() => {}}>Child</Button>
+        
     </View>
   );
 };
@@ -27,9 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  text: {
-    fontFamily: variables.fonts.light,
-    color: variables.colors.primary,
+    paddingLeft: variables.padding.large,
+    paddingRight: variables.padding.large,
   },
 });

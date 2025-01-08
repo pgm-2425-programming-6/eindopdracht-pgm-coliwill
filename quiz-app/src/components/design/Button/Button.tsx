@@ -1,14 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { variables } from "@/style/theme";
 
-const Button = () => {
+type Props = {
+  onPress: () => void;
+  children: string;
+  disabled?: boolean;
+};
+
+const Button = ({ onPress, children, disabled = false }: Props) => {
   return (
-    <View>
-      <Text>Button</Text>
-    </View>
-  )
-}
+    <Pressable
+      style={styles.button}
+      accessibilityLabel={children}
+      onPress={onPress}
+      disabled={disabled}
+    >
+      <View>
+        <Text style={styles.text}>{children}</Text>
+      </View>
+    </Pressable>
+  );
+};
 
-export default Button
+export default Button;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: variables.fonts.bold,
+    color: variables.colors.buttonText,
+    fontSize: variables.fontSizes.xxxLarge,
+  },
+  button: {
+    backgroundColor: variables.colors.primary,
+    padding: variables.padding.large,
+    borderRadius: variables.borderRadius.large,
+    width: "100%",
+    alignItems: "center",
+  },
+});

@@ -8,6 +8,12 @@ const Colors = {
   black: "#000",
 }
 
+const padding = {
+  small: 5,
+  medium: 10,
+  large: 15,
+}
+
 const borderRadius = {
   small: 5,
   medium: 10,
@@ -22,6 +28,15 @@ const fonts = {
   semiBold: "Fredoka-SemiBold",
 }
 
+const fontSizes = {
+  small: 12,
+  medium: 14,
+  large: 16,
+  xLarge: 20,
+  xxLarge: 24,
+  xxxLarge: 32,
+}
+
 export const variables = {
   ...DefaultTheme,
   colors: {
@@ -33,5 +48,7 @@ export const variables = {
     border: Colors.white,
   },
   borderRadius,
-  fonts
+  fonts,
+  padding,
+  fontSizes,
 };
