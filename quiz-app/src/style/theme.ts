@@ -3,7 +3,7 @@ import { DefaultTheme } from "@react-navigation/native";
 const Colors = {
   green: "#305450",
   orange: "#C1512F",
-  background: "F3EFD4",
+  background: "#F3EFD4",
   white: "#fff",
   black: "#000",
 }
@@ -12,6 +12,16 @@ const padding = {
   small: 5,
   medium: 10,
   large: 15,
+  xLarge: 20,
+  xxLarge: 25,
+  xxxLarge: 30,
+}
+
+const margin = {
+  small: 5,
+  medium: 10,
+  large: 15,
+  xLarge: 20,
 }
 
 const borderRadius = {
@@ -46,9 +56,11 @@ export const variables = {
     text: Colors.black,
     buttonText: Colors.white,
     border: Colors.white,
+    inputBackground: Colors.white,
   },
   borderRadius,
   fonts,
   padding,
   fontSizes,
+  margin,
 };
