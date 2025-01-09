@@ -4,22 +4,29 @@ import { useForm, Controller } from "react-hook-form";
 import TextInputField from "@design/Form/TextInputField";
 import Button from "@design/Button/Button";
 
-const LoginForm = () => {
+type Props = {
+  onSubmit: (data: any) => void;
+};
+
+const LoginForm = ({ onSubmit}: Props) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
   return (
     <View style={{ width: "100%" }}>
       <Controller
         name="email"
         control={control}
+        rules={{
+          required: "Email is required",
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: "Enter a valid email address",
+          },
+        }}
         render={({ field: { onChange, value } }) => (
           <TextInputField
             label="Email"
@@ -28,26 +35,24 @@ const LoginForm = () => {
             onChangeText={onChange}
           />
         )}
-        rules={{ required: "Email is required",}}
       />
-
-      {errors.email && <Text>Not valid email</Text>}
+      {errors.email && <Text>{errors.email.message as string}</Text>}
 
       <Controller
         name="password"
         control={control}
+        rules={{ required: "Password is required" }}
         render={({ field: { onChange, value } }) => (
           <TextInputField
             label="Password"
             placeholder="Password"
             value={value}
+            secureTextEntry={true}
             onChangeText={onChange}
           />
         )}
-        rules={{ required: "Email is required",}}
       />
-
-      {errors.email && <Text>Not valid email</Text>}
+      {errors.password && <Text>{errors.password.message as string}</Text>}
 
       <Button onPress={handleSubmit(onSubmit)}>Login</Button>
     </View>
@@ -55,5 +60,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-const styles = StyleSheet.create({});

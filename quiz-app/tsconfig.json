@@ -8,7 +8,8 @@
       "@functional/*": ["./src/components/functional/*"],
       "@core/*": ["./src/core/*"],
       "@assets/*": ["./assets/*"],
-      "@style/*": ["./src/style/*"]
+      "@style/*": ["./src/style/*"],
+      "@lib/*":["./src/lib/*"],
 
     }
   },

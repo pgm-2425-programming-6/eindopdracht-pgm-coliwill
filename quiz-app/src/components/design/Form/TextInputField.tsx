@@ -7,9 +7,10 @@ type Props = {
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
+  secureTextEntry?: boolean;
 };
 
-const TextInputField = ({ label, placeholder, value, onChangeText }: Props) => {
+const TextInputField = ({ label, placeholder, value, onChangeText, secureTextEntry }: Props) => {
   return (
     <View style={styles.textInputContainer}>
       <Text style={styles.label}>{label}</Text>
@@ -18,6 +19,7 @@ const TextInputField = ({ label, placeholder, value, onChangeText }: Props) => {
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );
