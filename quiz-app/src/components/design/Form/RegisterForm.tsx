@@ -3,18 +3,22 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import TextInputField from "@design/Form/TextInputField";
 import Button from "@design/Button/Button";
-import ErrorText from "@design/global/ErrorText";
+import ErrorText from "@/components/design/global/ErrorText";
 
 type Props = {
   onSubmit: (data: any) => void;
 };
 
-const LoginForm = ({ onSubmit}: Props) => {
+const RegisterForm = ({ onSubmit }: Props) => {
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
+
+  // Watch password to validate confirm password
+  const password = watch("password");
 
   return (
     <View style={{ width: "100%" }}>
@@ -55,9 +59,31 @@ const LoginForm = ({ onSubmit}: Props) => {
       />
       {errors.password && <ErrorText>{errors.password.message as string}</ErrorText>}
 
-      <Button onPress={handleSubmit(onSubmit)}>Login</Button>
+      <Controller
+        name="confirmPassword"
+        control={control}
+        rules={{
+          required: "Confirm Password is required",
+          validate: (value) =>
+            value === password || "Passwords do not match",
+        }}
+        render={({ field: { onChange, value } }) => (
+          <TextInputField
+            label="Confirm Password"
+            placeholder="Confirm your password"
+            value={value}
+            secureTextEntry={true}
+            onChangeText={onChange}
+          />
+        )}
+      />
+      {errors.confirmPassword && (
+        <ErrorText>{errors.confirmPassword.message as string}</ErrorText>
+      )}
+
+      <Button onPress={handleSubmit(onSubmit)}>Register</Button>
     </View>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
