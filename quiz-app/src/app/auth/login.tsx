@@ -24,7 +24,7 @@ const Index = () => {
     } else {
       console.log("Login successful:", data.email);
       Alert.alert("Login successful!");
-      router.push("/two");
+      router.push("/(tabs)");
     }
     setLoading(false);
   }

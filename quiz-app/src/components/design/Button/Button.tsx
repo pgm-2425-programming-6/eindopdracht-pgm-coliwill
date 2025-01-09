@@ -6,12 +6,13 @@ type Props = {
   onPress: () => void;
   children: string;
   disabled?: boolean;
+  color?: string; // Add a color prop
 };
 
-const Button = ({ onPress, children, disabled = false }: Props) => {
+const Button = ({ onPress, children, disabled = false, color }: Props) => {
   return (
     <Pressable
-      style={styles.button}
+      style={[styles.button, { backgroundColor: color || variables.colors.primary }]} // Use the provided color or default to primary
       accessibilityLabel={children}
       onPress={onPress}
       disabled={disabled}
@@ -32,10 +33,10 @@ const styles = StyleSheet.create({
     fontSize: variables.fontSizes.xxxLarge,
   },
   button: {
-    backgroundColor: variables.colors.primary,
     padding: variables.padding.large,
     borderRadius: variables.borderRadius.large,
     width: "100%",
     alignItems: "center",
+    marginBottom: variables.margin.large,
   },
 });

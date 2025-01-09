@@ -52,6 +52,7 @@ export const variables = {
   colors: {
     ...DefaultTheme.colors,
     primary: Colors.green,
+    secondary: Colors.orange,
     background: Colors.background,
     text: Colors.black,
     buttonText: Colors.white,

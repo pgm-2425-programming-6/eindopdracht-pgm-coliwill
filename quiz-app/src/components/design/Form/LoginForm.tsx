@@ -4,12 +4,16 @@ import { useForm, Controller } from "react-hook-form";
 import TextInputField from "@design/Form/TextInputField";
 import Button from "@design/Button/Button";
 import ErrorText from "@design/global/ErrorText";
+import { useRouter } from "expo-router";
+import { variables } from "@/style/theme";
 
 type Props = {
   onSubmit: (data: any) => void;
 };
 
 const LoginForm = ({ onSubmit}: Props) => {
+
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -56,6 +60,7 @@ const LoginForm = ({ onSubmit}: Props) => {
       {errors.password && <ErrorText>{errors.password.message as string}</ErrorText>}
 
       <Button onPress={handleSubmit(onSubmit)}>Login</Button>
+      <Button color={variables.colors.secondary} onPress={() => router.push("/auth/register")}>Register</Button>
     </View>
   );
 };
