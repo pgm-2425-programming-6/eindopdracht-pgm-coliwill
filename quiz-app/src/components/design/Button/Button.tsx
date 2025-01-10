@@ -6,7 +6,7 @@ type Props = {
   onPress: () => void;
   children: string;
   disabled?: boolean;
-  color?: string; // Add a color prop
+  color?: string; 
 };
 
 const Button = ({ onPress, children, disabled = false, color }: Props) => {

@@ -1,17 +1,23 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import LinkButton from '../Button/LinkButton';
 
-const HorizontalScrollView = () => {
+import { variables } from '@/style/theme';
+
+type Props = {
+  children: React.ReactNode;
+};  
+
+
+const HorizontalScrollView = ({children}:Props) => {
   return (
     <View style={styles.scrollContainer}>
       <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false} 
         contentContainerStyle={styles.scrollViewContent}>
-        {Array.from({ length: 20 }, (_, index) => (
-          <View key={index} style={styles.item}>
-            <Text style={styles.itemText}>{`Item ${index + 1}`}</Text>
-          </View>
+        {Array.from({ length: 10 }, (_, index) => (
+          <React.Fragment key={index}>{children}</React.Fragment>
         ))}
       </ScrollView>
     </View>
@@ -23,23 +29,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
   },
   scrollViewContent: {
-    flexDirection: 'row', 
-  },
-  item: {
-    width: 100,
-    height: 100,
-    margin: 5,
-    backgroundColor: 'skyblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  itemText: {
-    color: 'white',
-    fontWeight: 'bold',
+    flexDirection: 'row',
+    gap: 10,
   },
 });
 

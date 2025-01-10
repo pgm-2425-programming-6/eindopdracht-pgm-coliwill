@@ -55,6 +55,7 @@ export const variables = {
     secondary: Colors.orange,
     background: Colors.background,
     text: Colors.black,
+    cardText: Colors.white,
     buttonText: Colors.white,
     border: Colors.white,
     inputBackground: Colors.white,
