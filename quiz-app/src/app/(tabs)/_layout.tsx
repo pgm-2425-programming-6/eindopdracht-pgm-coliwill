@@ -1,19 +1,37 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import { Stack } from "expo-router";
+import { Stack, useRootNavigationState } from "expo-router";
 import AuthMiddleware from "@/middleware/authMiddleware";
+import { variables } from "@/style/theme";
+import NavBar from "@design/navigation/navBar";
 
-const Rootlayout = () => {
+const RootLayout = () => {
+  // Get the root navigation state
+  const rootNavigationState = useRootNavigationState();
+  const currentRoute = rootNavigationState?.routes[rootNavigationState.index]?.name;
+
+  // Specify screens where the navbar should not be visible
+  const noNavBarScreens = ["two", "anotherScreen",]; // Add route names where navbar is hidden
+
   return (
     <AuthMiddleware>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="two" options={{ headerShown: false }} />
-      </Stack>
+      <View style={styles.container}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="two" options={{ headerShown: false }} />
+        </Stack>
+        {/* Conditionally render the NavBar */}
+        {!noNavBarScreens.includes(currentRoute) && <NavBar />}
+      </View>
     </AuthMiddleware>
   );
 };
 
-export default Rootlayout;
+export default RootLayout;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: variables.colors.background,
+  },
+});

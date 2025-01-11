@@ -2,6 +2,7 @@ import { DefaultTheme } from "@react-navigation/native";
 
 const Colors = {
   green: "#305450",
+  darkOrange: "#EAC39F",
   orange: "#C1512F",
   background: "#F3EFD4",
   white: "#fff",
@@ -54,6 +55,7 @@ export const variables = {
     primary: Colors.green,
     secondary: Colors.orange,
     background: Colors.background,
+    cardBackground: Colors.darkOrange,
     text: Colors.black,
     cardText: Colors.white,
     buttonText: Colors.white,
