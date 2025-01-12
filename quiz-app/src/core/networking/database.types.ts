@@ -202,24 +202,24 @@ export type Database = {
       }
       profiles: {
         Row: {
-          avatar: string | null
+          avatar: string
           created_at: string
           id: number
-          user_id: string | null
+          user_id: string
           username: string
         }
         Insert: {
-          avatar?: string | null
+          avatar?: string
           created_at?: string
           id?: number
-          user_id?: string | null
+          user_id?: string
           username?: string
         }
         Update: {
-          avatar?: string | null
+          avatar?: string
           created_at?: string
           id?: number
-          user_id?: string | null
+          user_id?: string
           username?: string
         }
         Relationships: []
@@ -311,7 +311,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_profile_after_signup: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       status: "pending" | "declined" | "accepted"

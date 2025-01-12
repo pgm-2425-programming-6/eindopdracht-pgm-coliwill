@@ -14,10 +14,7 @@ const Index = () => {
 
   async function signUpWithEmail(data: { email: string; password: string }) {
     setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
+    const { data: authData, error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
     });
@@ -26,11 +23,19 @@ const Index = () => {
       Alert.alert(error.message);
     } else {
       console.log("Register successful:", data.email);
-      Alert.alert("Register successful!");
-      router.push("/auth/login");
+
+      // RPC Call to create the profile
+      const { error: rpcError } = await supabase.rpc('create_profile_after_signup');
+
+      if (rpcError) {
+        console.error("Error creating profile:", rpcError.message);
+        Alert.alert("Error creating profile. Please contact support.");
+      } else {
+        Alert.alert("Register successful! Your profile has been created.");
+        router.push("/auth/login");
+      }
     }
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
+
     setLoading(false);
   }
 
