@@ -12,7 +12,7 @@ type Props = {
 const Button = ({ onPress, children, disabled = false, color }: Props) => {
   return (
     <Pressable
-      style={[styles.button, { backgroundColor: color || variables.colors.primary }]} // Use the provided color or default to primary
+      style={[styles.button, { backgroundColor: color || variables.colors.primary }]}
       accessibilityLabel={children}
       onPress={onPress}
       disabled={disabled}

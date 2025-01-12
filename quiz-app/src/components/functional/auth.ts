@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View, AppState } from 'react-native'
 import { supabase } from '@lib/supabase'
 
+import { useRouter } from 'expo-router'
+
 
 export default function Auth() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -32,5 +35,14 @@ export default function Auth() {
     if (error) Alert.alert(error.message)
     if (!session) Alert.alert('Please check your inbox for email verification!')
     setLoading(false)
+  }
+
+  async function signOut() {
+    const { error } = await supabase.auth.signOut()
+    if (!error) {
+      router.replace('/auth/login')
+    } else {
+      Alert.alert(error.message)
+    }
   }
 }

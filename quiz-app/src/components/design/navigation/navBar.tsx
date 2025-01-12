@@ -1,15 +1,18 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import React from "react";
-import CrownIcon from "@assets/images/crown.svg";
-import HomeIcon from "@assets/images/home.svg";
-import LightningIcon from "@assets/images/lightning.svg";
+import CrownIcon from "@assets/images/icons/crown.svg";
+import HomeIcon from "@assets/images/icons/home.svg";
+import LightningIcon from "@assets/images/icons/lightning.svg";
 import { variables } from "@/style/theme";
 import SmallAvatar from "../avatar/SmallAvatar";
+import { useRouter } from "expo-router";
 
 const NavBar = () => {
+
+  const router = useRouter();
   return (
     <View style={styles.navbar}>
-      <Pressable onPress={() => console.log("Home pressed")}>
+      <Pressable onPress={() => router.navigate("/")}>
         <HomeIcon
           width={40}
           height={30}
@@ -25,7 +28,7 @@ const NavBar = () => {
         />
       </Pressable>
 
-      <Pressable onPress={() => console.log("Challenges pressed")}>
+      <Pressable onPress={() => router.navigate("/(tabs)/achievments")}>
         <LightningIcon
           width={40}
           height={30}
@@ -33,7 +36,7 @@ const NavBar = () => {
         />
       </Pressable>
 
-      <Pressable onPress={() => console.log("Profile pressed")}>
+      <Pressable onPress={() => router.navigate("/(tabs)/profile")}>
         <SmallAvatar />
       </Pressable>
     </View>

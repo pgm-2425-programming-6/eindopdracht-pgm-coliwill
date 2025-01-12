@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const two = () => {
+const achievments = () => {
   return (
     <View>
-      <Text>two</Text>
+      <Text>achievments</Text>
     </View>
   )
 }
 
-export default two
+export default achievments
 
 const styles = StyleSheet.create({})

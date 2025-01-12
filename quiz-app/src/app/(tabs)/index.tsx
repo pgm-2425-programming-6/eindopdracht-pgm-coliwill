@@ -16,27 +16,34 @@ import { variables } from "@/style/theme";
 import { Button } from "react-native";
 import { useRouter } from "expo-router";
 import { Session } from "@supabase/supabase-js";
-import LinkButton from "@/components/design/Button/LinkButton";
-import HorizontalScrollView from "@/components/design/ScrollContainer/HorizontalScrollContainer";
-import SmallAvatar from "@/components/design/avatar/SmallAvatar";
-import QuizCard from "@/components/design/card/QuizCard";
+import LinkButton from "@design/Button/LinkButton";
+import HorizontalScrollView from "@design/ScrollContainer/HorizontalScrollContainer";
+import SmallAvatar from "@design/avatar/SmallAvatar";
+import QuizCard from "@design/card/QuizCard";
+
+import Title from "@design/text/Title";
+import Subtitle from "@design/text/Subtitle";
 
 const index = () => {
+  const router = useRouter();
   return (
     <KeyboardAvoidingView
-      style={[styles.container, { backgroundColor: variables.colors.background }]}
+      style={[
+        styles.container,
+        { backgroundColor: variables.colors.background },
+      ]}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ flex: 1, backgroundColor: variables.colors.background }}
-      >
-        <Text style={styles.title}>Good morning user!</Text>
-        <Text style={styles.subTitle}>Let's Quiz!</Text>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <View style={{ marginBottom: variables.margin.large }}>
+          <Title text="Welcome user" />
+          <Subtitle text="Let's Quiz" />
+        </View>
+
         <View style={styles.card}>
           <View style={{ width: "45%" }}>
             <Text style={styles.cardText}>Discover your available Quizes</Text>
-            <LinkButton onPress={() => {}}>Check Out</LinkButton>
+            <LinkButton onPress={() => {}}>Check out</LinkButton>
           </View>
 
           <Image
@@ -47,37 +54,30 @@ const index = () => {
             source={require("@assets/images/homeImage.png")}
           />
         </View>
-        <Text style={styles.title}>Category</Text>
+        <Title text="Subjects" />
         <View style={styles.horizontalScroll}>
           <HorizontalScrollView>
             <LinkButton color={variables.colors.primary} onPress={() => {}}>
-              Category
+              Subject title
             </LinkButton>
           </HorizontalScrollView>
         </View>
-        <Text style={styles.title}>Friendlist</Text>
+        <Title text="Friendlist" />
         <View style={styles.horizontalScroll}>
           <HorizontalScrollView>
-            <SmallAvatar />
+            <SmallAvatar text="Bordercolin" />
           </HorizontalScrollView>
         </View>
-        <Text style={styles.title}>Discovery</Text>
+        <Title text="Discovery" />
         <View style={styles.horizontalScroll}>
           <HorizontalScrollView>
             <QuizCard />
           </HorizontalScrollView>
         </View>
-        <Button
-          title="Logout"
-          onPress={async () => {
-            await supabase.auth.signOut();
-          }}
-        />
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
-
 
 export default index;
 
@@ -87,19 +87,6 @@ const styles = StyleSheet.create({
     paddingLeft: variables.padding.xxxLarge,
     paddingRight: variables.padding.xxxLarge,
     paddingTop: variables.padding.xxxLarge,
-  },
-
-  title: {
-    fontFamily: variables.fonts.bold,
-    color: variables.colors.text,
-    fontSize: variables.fontSizes.xxLarge,
-  },
-
-  subTitle: {
-    fontFamily: variables.fonts.light,
-    color: variables.colors.text,
-    fontSize: variables.fontSizes.small,
-    marginBottom: variables.margin.large,
   },
 
   card: {

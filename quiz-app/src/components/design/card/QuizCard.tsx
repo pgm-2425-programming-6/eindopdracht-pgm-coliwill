@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginTop: variables.margin.medium,
-    backgroundColor: "#A86556",
     padding: variables.padding.small,
     borderRadius: variables.borderRadius.small,
   },

@@ -23,7 +23,6 @@ const Index = () => {
       Alert.alert(error.message);
     } else {
       console.log("Login successful:", data.email);
-      Alert.alert("Login successful!");
       router.push("/(tabs)");
     }
     setLoading(false);

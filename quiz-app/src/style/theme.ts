@@ -41,6 +41,8 @@ const fonts = {
 }
 
 const fontSizes = {
+  xxSmall: 8,
+  xSmall: 10,
   small: 12,
   medium: 14,
   large: 16,
@@ -62,7 +64,7 @@ export const variables = {
     buttonText: Colors.white,
     border: Colors.white,
     inputBackground: Colors.white,
-    navIconActive: Colors.darkOrange,
+    navIconActive: Colors.orange,
     navIconInactive: Colors.gray,
   },
   borderRadius,

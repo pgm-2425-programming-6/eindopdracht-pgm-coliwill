@@ -4,20 +4,24 @@ import React from "react";
 import { variables } from "@/style/theme";
 
 type Props = {
-  onPress: () => void;
+  onPress?: () => void;
   children: string;
   disabled?: boolean;
   color?: string;
+  complete?: boolean;
 };
 
-const LinkButton = ({onPress, children, disabled, color}:Props) => {
+const LinkButton = ({ onPress, children, disabled, color, complete }: Props) => {
+  const buttonColor = complete ? color || variables.colors.buttonText : 'transparent';
+  const textColor = complete ? 'white' : color || variables.colors.buttonText;
+
   return (
     <Pressable
-      style={[styles.buttonContainer, { borderColor: color || variables.colors.buttonText }]}
+      style={[styles.buttonContainer, { borderColor: color || variables.colors.buttonText, backgroundColor: buttonColor }]}
       onPress={onPress}
       disabled={disabled}
     >
-      <Text style={[styles.buttonText, { color: color || variables.colors.buttonText }]}>{children}</Text>
+      <Text style={[styles.buttonText, { color: textColor }]}>{children}</Text>
     </Pressable>
   );
 };

@@ -21,7 +21,7 @@ const RegisterForm = ({ onSubmit }: Props) => {
     formState: { errors },
   } = useForm();
 
-  // Watch password to validate confirm password
+
   const password = watch("password");
 
   return (
