@@ -20,12 +20,26 @@ import LinkButton from "@design/Button/LinkButton";
 import HorizontalScrollView from "@design/ScrollContainer/HorizontalScrollContainer";
 import SmallAvatar from "@design/avatar/SmallAvatar";
 import QuizCard from "@design/card/QuizCard";
+import { useQuery } from "@tanstack/react-query";
 
 import Title from "@design/text/Title";
 import Subtitle from "@design/text/Subtitle";
+import { getQuizzes } from "@/core/modules/quizzes/api";
 
 const index = () => {
   const router = useRouter();
+
+  const {
+    data: quizzes,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["quizzes"],
+    queryFn: getQuizzes,
+  });
+
+  console.log(quizzes);
+
   return (
     <KeyboardAvoidingView
       style={[

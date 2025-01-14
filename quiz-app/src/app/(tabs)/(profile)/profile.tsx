@@ -14,7 +14,6 @@ import { variables } from "@/style/theme";
 import SettingsIcon from "@assets/images/icons/settings.svg";
 import EditIcon from "@assets/images/icons/edit.svg";
 
-import AvatarIcon from "@assets/images/avatars/avatar.svg";
 import ImageCard from "@design/card/ImageCard";
 
 import Title from "@design/text/Title";
@@ -27,10 +26,12 @@ import ProgressBar from "@design/progressBar/ProgressBar";
 import LinkButton from "@design/Button/LinkButton";
 
 import { useRouter } from "expo-router";
+import GetLoggedInUser from "@/components/functional/GetLoggedInUser";
 
 const profile = () => {
-
   const router = useRouter();
+
+  console.log(profile);
   return (
     <KeyboardAvoidingView
       style={[
@@ -45,12 +46,15 @@ const profile = () => {
             <SettingsIcon width={40} height={30} />
           </Pressable>
           <Title text="Profile" />
-          <EditIcon width={40} height={30} />
+          <Pressable
+            onPress={() => router.push("/(tabs)/(profile)/updateProfile")}
+          >
+            <EditIcon width={40} height={30} />
+          </Pressable>
         </View>
 
         <View style={{ alignItems: "center" }}>
-          <AvatarIcon />
-          <Title text="Username" />
+          <GetLoggedInUser />
           <View style={styles.rank}>
             <NormalText text="Rank" color={variables.colors.buttonText} />
           </View>

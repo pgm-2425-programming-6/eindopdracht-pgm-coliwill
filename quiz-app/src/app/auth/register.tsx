@@ -24,14 +24,12 @@ const Index = () => {
     } else {
       console.log("Register successful:", data.email);
 
-      // RPC Call to create the profile
       const { error: rpcError } = await supabase.rpc('create_profile_after_signup');
 
       if (rpcError) {
         console.error("Error creating profile:", rpcError.message);
-        Alert.alert("Error creating profile. Please contact support.");
+        Alert.alert("Error creating profile.");
       } else {
-        Alert.alert("Register successful! Your profile has been created.");
         router.push("/auth/login");
       }
     }

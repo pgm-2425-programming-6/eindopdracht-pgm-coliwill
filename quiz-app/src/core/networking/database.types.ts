@@ -62,6 +62,24 @@ export type Database = {
           },
         ]
       }
+      avatars: {
+        Row: {
+          created_at: string
+          id: number
+          image_name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          image_name: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          image_name?: string
+        }
+        Relationships: []
+      }
       categories: {
         Row: {
           created_at: string
@@ -143,6 +161,7 @@ export type Database = {
           image: string | null
           question_text: string
           quiz_id: number
+          true_answer: string
         }
         Insert: {
           created_at?: string
@@ -150,6 +169,7 @@ export type Database = {
           image?: string | null
           question_text?: string
           quiz_id: number
+          true_answer?: string
         }
         Update: {
           created_at?: string
@@ -157,6 +177,7 @@ export type Database = {
           image?: string | null
           question_text?: string
           quiz_id?: number
+          true_answer?: string
         }
         Relationships: [
           {
@@ -259,25 +280,28 @@ export type Database = {
           created_at: string
           id: number
           name: string
+          quiz_image: string | null
         }
         Insert: {
           category_id?: number | null
           created_at?: string
           id?: number
           name?: string
+          quiz_image?: string | null
         }
         Update: {
           category_id?: number | null
           created_at?: string
           id?: number
           name?: string
+          quiz_image?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "quizzes_category_id_fkey"
             columns: ["category_id"]
             isOneToOne: false
-            referencedRelation: "quizzes"
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
         ]
@@ -287,6 +311,7 @@ export type Database = {
           created_at: string
           id: number
           sound: boolean
+          text_to_speech: boolean | null
           user_id: string | null
           vibrations: boolean
         }
@@ -294,6 +319,7 @@ export type Database = {
           created_at?: string
           id?: number
           sound?: boolean
+          text_to_speech?: boolean | null
           user_id?: string | null
           vibrations?: boolean
         }
@@ -301,6 +327,7 @@ export type Database = {
           created_at?: string
           id?: number
           sound?: boolean
+          text_to_speech?: boolean | null
           user_id?: string | null
           vibrations?: boolean
         }
@@ -313,6 +340,21 @@ export type Database = {
     Functions: {
       create_profile_after_signup: {
         Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      get_user_profile: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          user_id: string
+          username: string
+          avatar: string
+        }[]
+      }
+      update_user_profile: {
+        Args: {
+          new_username: string
+          new_avatar: string
+        }
         Returns: undefined
       }
     }

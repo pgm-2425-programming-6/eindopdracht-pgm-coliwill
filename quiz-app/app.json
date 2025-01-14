@@ -20,7 +20,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.bordercolin.quizapp"
     },
     "web": {
       "bundler": "metro",
@@ -42,9 +43,16 @@
       ],
       "expo-asset"
     ],
-
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "40857d8f-046d-4824-a6dc-9894e92f450c"
+      }
     }
   }
 }

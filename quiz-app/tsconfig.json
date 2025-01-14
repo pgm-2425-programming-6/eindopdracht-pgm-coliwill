@@ -10,6 +10,7 @@
       "@assets/*": ["./assets/*"],
       "@style/*": ["./src/style/*"],
       "@lib/*":["./src/lib/*"],
+      "@hooks/*":["./src/hooks/*"],
 
     }
   },

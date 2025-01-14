@@ -3,7 +3,7 @@ import React from "react";
 import { variables } from "@/style/theme";
 
 type Props = {
-  text: string;
+  text: string | undefined;
 };
 
 const Title = ({text}:Props) => {
