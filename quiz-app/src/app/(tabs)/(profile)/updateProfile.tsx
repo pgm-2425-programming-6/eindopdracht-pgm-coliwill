@@ -4,13 +4,14 @@ import UpdateProfileForm from "@design/Form/UpdateProfileForm";
 import { supabase } from "@/lib/supabase";
 import { variables } from "@/style/theme";
 
+
 const UpdateProfile = () => {
-  const handleUpdateProfile = async (data: { username: string; avatar: string }) => {
+  const handleUpdateProfile = async (data: { username?: string; avatar?: string }) => {
     console.log("Updating profile with:", data);
 
     const { error } = await supabase.rpc("update_user_profile", {
-      new_username: data.username,
-      new_avatar: data.avatar,
+      new_username: data.username || null,
+      new_avatar: data.avatar || null,
     });
 
     if (error) {

@@ -31,7 +31,6 @@ import GetLoggedInUser from "@/components/functional/GetLoggedInUser";
 const profile = () => {
   const router = useRouter();
 
-  
   return (
     <KeyboardAvoidingView
       style={[
@@ -114,7 +113,6 @@ const profile = () => {
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.card}>
-              <ImageCard />
               <View style={styles.innerCard}>
                 <Title text="PGM-6" />
                 <Subtitle text="Quiz" />
@@ -129,7 +127,6 @@ const profile = () => {
               </View>
             </View>
             <View style={styles.card}>
-              <ImageCard />
               <View style={styles.innerCard}>
                 <Title text="PGM-6" />
                 <Subtitle text="Quiz" />
@@ -144,7 +141,6 @@ const profile = () => {
               </View>
             </View>
             <View style={styles.card}>
-              <ImageCard />
               <View style={styles.innerCard}>
                 <Title text="PGM-6" />
                 <Subtitle text="Quiz" />
@@ -158,7 +154,6 @@ const profile = () => {
               </View>
             </View>
             <View style={styles.card}>
-              <ImageCard />
               <View style={styles.innerCard}>
                 <Title text="PGM-6" />
                 <Subtitle text="Quiz" />

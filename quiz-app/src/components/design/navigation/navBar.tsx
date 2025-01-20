@@ -34,7 +34,7 @@ const NavBar = () => {
         />
       </Pressable>
 
-      <Pressable onPress={() => router.navigate("/(tabs)/achievments")}>
+      <Pressable onPress={() => router.navigate("/achievements")}>
         <LightningIcon
           width={40}
           height={30}

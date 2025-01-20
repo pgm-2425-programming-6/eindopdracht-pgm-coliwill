@@ -23,7 +23,13 @@ import QuizScrollView from "@/components/functional/QuizScrollView";
 import CategoriesScrollView from "@/components/functional/CategoriesScrollView";
 import FriendListScrollView from "@/components/functional/FriendListScrollView";
 
+import useProfileFetcher from "@/hooks/useProfileFetcher";
+
 const index = () => {
+
+  const { profile } = useProfileFetcher();
+
+  
   const router = useRouter();
 
   return (
@@ -36,7 +42,7 @@ const index = () => {
     >
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <View style={{ marginBottom: variables.margin.large }}>
-          <Title text="Welcome user" />
+          <Title text={`welcome ${profile?.username}`} />
           <Subtitle text="Let's Quiz" />
         </View>
 

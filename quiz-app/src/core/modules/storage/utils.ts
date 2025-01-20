@@ -15,3 +15,8 @@ export const getQuestionImageUrl = (path: string) => {
   const { data } = supabase.storage.from(Bucket.Questions).getPublicUrl(path);
   return data?.publicUrl;
 }
+
+export const getAchievementImageUrl = (path: string) => {
+  const { data } = supabase.storage.from(Bucket.Achievements).getPublicUrl(path);
+  return data?.publicUrl;
+}

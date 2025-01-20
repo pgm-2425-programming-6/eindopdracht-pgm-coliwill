@@ -27,9 +27,9 @@ const Quiz = () => {
   const [inputAnswer, setInputAnswer] = useState("");
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [timeLeft, setTimeLeft] = useState(10000); // Timer in milliseconds
-  const [score, setScore] = useState(0); // Total score
-  const [correctAnswers, setCorrectAnswers] = useState(0); // Count correct answers
+  const [timeLeft, setTimeLeft] = useState(10000); 
+  const [score, setScore] = useState(0); 
+  const [correctAnswers, setCorrectAnswers] = useState(0); 
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -74,7 +74,7 @@ const Quiz = () => {
       if (isAnswerCorrect) {
         const questionScore = calculateQuestionScore();
         setScore((prevScore) => prevScore + questionScore);
-        setCorrectAnswers((prev) => prev + 1); // Increment correct answers
+        setCorrectAnswers((prev) => prev + 1); 
       }
       setIsCorrect(isAnswerCorrect);
       setIsAnswerSubmitted(true);

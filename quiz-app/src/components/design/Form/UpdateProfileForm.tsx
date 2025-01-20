@@ -1,21 +1,34 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import TextInputField from "@design/Form/TextInputField";
+import { useQuery } from "@tanstack/react-query";
+import { SvgUri } from "react-native-svg";
 import Button from "@design/Button/Button";
 import ErrorText from "@design/global/ErrorText";
 import { variables } from "@/style/theme";
-
+import getAvatars from "@/core/modules/avatars/api";
+import { getAvatarImageUrl } from "@/core/modules/storage/utils";
 
 type Props = {
-  onSubmit: (data: { username: string; avatar: string }) => void;
-  defaultValues?: { username?: string; avatar?: string }; 
+  onSubmit: (data: { username?: string; avatar?: string }) => void; // Allow optional fields
+  defaultValues?: { username?: string; avatar?: string };
 };
 
 const UpdateProfileForm = ({ onSubmit, defaultValues = {} }: Props) => {
   const {
+    data: avatars,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["avatars"],
+    queryFn: getAvatars,
+  });
+
+  const {
     control,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -24,51 +37,89 @@ const UpdateProfileForm = ({ onSubmit, defaultValues = {} }: Props) => {
     },
   });
 
+  const handleAvatarSelect = (avatar: string) => {
+    setValue("avatar", avatar);
+  };
+
+  const handleFormSubmit = () => {
+    const currentValues = getValues();
+
+    // Ensure unchanged fields retain their default values
+    const finalValues = {
+      username: currentValues.username || defaultValues.username,
+      avatar: currentValues.avatar || defaultValues.avatar,
+    };
+
+    // Skip submission if no changes were made
+    if (
+      finalValues.username === defaultValues.username &&
+      finalValues.avatar === defaultValues.avatar
+    ) {
+      console.log("No changes made to the profile.");
+      return;
+    }
+
+    console.log("Updating profile with:", finalValues);
+    onSubmit(finalValues);
+  };
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error loading avatars!</Text>;
+  }
+
   return (
     <View style={{ width: "100%" }}>
-     
+      {/* Username Input */}
       <Controller
         name="username"
         control={control}
-        rules={{
-          required: "Username is required",
-          minLength: { value: 3, message: "Username must be at least 3 characters long" },
-        }}
         render={({ field: { onChange, value } }) => (
-          <TextInputField
-            label="Username"
-            placeholder="Enter your username"
-            value={value}
-            onChangeText={onChange}
-          />
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Username</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your username"
+              value={value}
+              onChangeText={onChange}
+            />
+          </View>
         )}
       />
-      {errors.username && <ErrorText>{errors.username.message as string}</ErrorText>}
+      {errors.username && (
+        <ErrorText>{errors.username.message as string}</ErrorText>
+      )}
 
-  
-      <Controller
-        name="avatar"
-        control={control}
-        rules={{
-          required: "Avatar is required",
-          pattern: {
-            value: /^avatar[0-9]*$/,
-            message: 'Avatar must be "avatar", "avatar1", "avatar2", etc.',
-          },
-        }}
-        render={({ field: { onChange, value } }) => (
-          <TextInputField
-            label="Avatar"
-            placeholder="Enter avatar (e.g., avatar or avatar1)"
-            value={value}
-            onChangeText={onChange}
-          />
-        )}
-      />
-      {errors.avatar && <ErrorText>{errors.avatar.message as string}</ErrorText>}
+      {/* Avatar Selection */}
+      <Text style={styles.label}>Select an Avatar</Text>
+      <View style={styles.avatarContainer}>
+        {avatars && avatars.map((avatar) => {
+          const imageUrl = getAvatarImageUrl(avatar.image_name);
+          return (
+            <TouchableOpacity
+              key={avatar.id}
+              style={[
+                styles.avatar,
+                avatar.image_name === defaultValues.avatar
+                  ? styles.selectedAvatar
+                  : {},
+              ]}
+              onPress={() => handleAvatarSelect(avatar.image_name)}
+            >
+              <SvgUri uri={imageUrl} width={80} height={80} />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      {errors.avatar && (
+        <ErrorText>{errors.avatar.message as string}</ErrorText>
+      )}
 
-     
-      <Button onPress={handleSubmit(onSubmit)}>Update Profile</Button>
+      {/* Submit Button */}
+      <Button onPress={handleSubmit(handleFormSubmit)}>Update Profile</Button>
     </View>
   );
 };
@@ -76,9 +127,40 @@ const UpdateProfileForm = ({ onSubmit, defaultValues = {} }: Props) => {
 export default UpdateProfileForm;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: variables.padding.xxxLarge,
-    backgroundColor: variables.colors.background,
+  inputContainer: {
+    marginBottom: 15,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: variables.colors.primary,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: "#fff",
+  },
+  avatarContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginVertical: 15,
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    margin: 5,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: "transparent",
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  selectedAvatar: {
+    borderColor: variables.colors.primary,
   },
 });
