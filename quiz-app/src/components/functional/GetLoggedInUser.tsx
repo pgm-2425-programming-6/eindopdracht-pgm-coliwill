@@ -3,6 +3,8 @@ import React from "react";
 import useProfileFetcher from "@hooks/useProfileFetcher";
 import { variables } from "@/style/theme";
 import avatars from "@functional/AllAvatars";
+import { getAvatarImageUrl } from "@/core/modules/storage/utils";
+import { SvgUri } from "react-native-svg";
 
 import Title from "@design/text/Title";
 
@@ -37,10 +39,14 @@ const GetLoggedInUser = () => {
   }
 
 
-  const AvatarIcon = profile.avatar ? avatars[profile.avatar] : avatars.avatar; 
+ 
   return (
     <>
-      <AvatarIcon />
+      <SvgUri
+        width="200"
+        height="200"
+        uri={profile.avatar ? getAvatarImageUrl(profile.avatar) : ""}
+      />
       <Title text={profile.username} />
     </>
   );

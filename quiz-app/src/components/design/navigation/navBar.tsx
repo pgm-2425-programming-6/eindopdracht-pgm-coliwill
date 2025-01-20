@@ -7,7 +7,13 @@ import { variables } from "@/style/theme";
 import SmallAvatar from "../avatar/SmallAvatar";
 import { useRouter } from "expo-router";
 
+import { SvgUri } from "react-native-svg";
+
+import useProfileFetcher from "@/hooks/useProfileFetcher";
+import { getAvatarImageUrl } from "@/core/modules/storage/utils";
+
 const NavBar = () => {
+  const { profile, loading, error } = useProfileFetcher();
 
   const router = useRouter();
   return (
@@ -36,8 +42,12 @@ const NavBar = () => {
         />
       </Pressable>
 
-      <Pressable onPress={() => router.navigate("/(tabs)/profile")}>
-        <SmallAvatar />
+      <Pressable onPress={() => router.navigate("/profile")}>
+        <SvgUri
+          width="50"
+          height="50"
+          uri={profile?.avatar ? getAvatarImageUrl(profile.avatar) : ""}
+        />
       </Pressable>
     </View>
   );

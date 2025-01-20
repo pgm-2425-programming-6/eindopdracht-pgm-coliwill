@@ -9,36 +9,22 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
-import { supabase } from "@/lib/supabase";
 
 import { variables } from "@/style/theme";
 
-import { Button } from "react-native";
 import { useRouter } from "expo-router";
-import { Session } from "@supabase/supabase-js";
+
 import LinkButton from "@design/Button/LinkButton";
-import HorizontalScrollView from "@design/ScrollContainer/HorizontalScrollContainer";
-import SmallAvatar from "@design/avatar/SmallAvatar";
-import QuizCard from "@design/card/QuizCard";
-import { useQuery } from "@tanstack/react-query";
 
 import Title from "@design/text/Title";
 import Subtitle from "@design/text/Subtitle";
-import { getQuizzes } from "@/core/modules/quizzes/api";
+
+import QuizScrollView from "@/components/functional/QuizScrollView";
+import CategoriesScrollView from "@/components/functional/CategoriesScrollView";
+import FriendListScrollView from "@/components/functional/FriendListScrollView";
 
 const index = () => {
   const router = useRouter();
-
-  const {
-    data: quizzes,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["quizzes"],
-    queryFn: getQuizzes,
-  });
-
-  console.log(quizzes);
 
   return (
     <KeyboardAvoidingView
@@ -70,23 +56,15 @@ const index = () => {
         </View>
         <Title text="Subjects" />
         <View style={styles.horizontalScroll}>
-          <HorizontalScrollView>
-            <LinkButton color={variables.colors.primary} onPress={() => {}}>
-              Subject title
-            </LinkButton>
-          </HorizontalScrollView>
+          <CategoriesScrollView />
         </View>
         <Title text="Friendlist" />
         <View style={styles.horizontalScroll}>
-          <HorizontalScrollView>
-            <SmallAvatar text="Bordercolin" />
-          </HorizontalScrollView>
+          <FriendListScrollView />
         </View>
         <Title text="Discovery" />
         <View style={styles.horizontalScroll}>
-          <HorizontalScrollView>
-            <QuizCard />
-          </HorizontalScrollView>
+          <QuizScrollView />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

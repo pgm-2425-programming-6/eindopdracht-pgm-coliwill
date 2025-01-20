@@ -5,7 +5,7 @@ import { variables } from "@/style/theme";
 
 type Props = {
   onPress?: () => void;
-  children: string;
+  children: React.ReactNode;
   disabled?: boolean;
   color?: string;
   complete?: boolean;

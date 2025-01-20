@@ -37,4 +37,23 @@ export const GetAllQuizImages = async () => {
   return [];
 }
 
+export const getAllInputQuestionImages = async () => {
+  const { data: files, error } = await supabase.storage
+    .from('questions')
+    .list('');
+
+  if (error) {
+    console.error('Error fetching images:', error.message);
+    return [];
+  }
+
+  if (files && files.length > 0) {
+    const images: string[] = files.map((file: any) => {
+      const { publicUrl } = supabase.storage.from('questions').getPublicUrl(file.name).data;
+      return publicUrl || '';
+    });
+
+    return images.filter((url) => url);
+  }
+}
 

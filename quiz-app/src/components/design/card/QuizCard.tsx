@@ -1,16 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ImageCard from "@design/card/ImageCard";
 import { variables } from "@/style/theme";
 
-const QuizCard = () => {
+import { useRouter } from "expo-router";
+
+type Props = {
+  imageUrl: string;
+  quizTitle: string;
+  quizCategory: string;
+  quizId: string;
+};
+
+const QuizCard = ({ imageUrl, quizTitle, quizCategory, quizId }: Props) => {
+  const router = useRouter();
   return (
     <View style={styles.container}>
-      <ImageCard />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>PGM-6</Text>
-        <Text style={styles.subTitle}>Mobile development</Text>
-      </View>
+      <Pressable
+        onPress={() => router.push(`/quizzes/${quizId}` as any)}
+      >
+        <ImageCard imageUrl={imageUrl} />
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{quizTitle}</Text>
+          <Text style={styles.subTitle}>{quizCategory}</Text>
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -22,7 +36,6 @@ const styles = StyleSheet.create({
     padding: variables.padding.medium,
     backgroundColor: variables.colors.cardBackground,
     borderRadius: variables.borderRadius.medium,
-    
   },
   textContainer: {
     marginTop: variables.margin.medium,

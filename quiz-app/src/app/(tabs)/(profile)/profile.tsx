@@ -31,7 +31,7 @@ import GetLoggedInUser from "@/components/functional/GetLoggedInUser";
 const profile = () => {
   const router = useRouter();
 
-  console.log(profile);
+  
   return (
     <KeyboardAvoidingView
       style={[

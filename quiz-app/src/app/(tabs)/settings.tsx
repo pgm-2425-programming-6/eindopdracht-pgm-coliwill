@@ -21,7 +21,7 @@ const settings = () => {
     <View style={styles.container}>
       <View style={styles.topNav}>
         <Pressable
-          onPress={() => router.navigate("/(tabs)/profile")}
+          onPress={() => router.navigate("/profile")}
           style={styles.backIconContainer}
         >
           <BackIcon width={40} height={30} />

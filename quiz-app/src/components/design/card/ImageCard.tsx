@@ -10,7 +10,7 @@ const ImageCard = ({imageUrl}: Props) => {
   return (
     <View>
       <Image
-        source={{ uri: "https://lmccjkaiuubtaixacunu.supabase.co/storage/v1/object/public/quizzes/it-exp.png" }}
+        source={{ uri: imageUrl }}
         style={{
           width: 120,
           height: 100,

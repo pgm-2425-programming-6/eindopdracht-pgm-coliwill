@@ -159,6 +159,7 @@ export type Database = {
           created_at: string
           id: number
           image: string | null
+          order: number | null
           question_text: string
           quiz_id: number
           true_answer: string
@@ -167,6 +168,7 @@ export type Database = {
           created_at?: string
           id?: number
           image?: string | null
+          order?: number | null
           question_text?: string
           quiz_id: number
           true_answer?: string
@@ -175,6 +177,7 @@ export type Database = {
           created_at?: string
           id?: number
           image?: string | null
+          order?: number | null
           question_text?: string
           quiz_id?: number
           true_answer?: string
@@ -194,6 +197,7 @@ export type Database = {
           created_at: string
           id: number
           image: string | null
+          order: number | null
           question_text: string
           quiz_id: number
         }
@@ -201,6 +205,7 @@ export type Database = {
           created_at?: string
           id?: number
           image?: string | null
+          order?: number | null
           question_text?: string
           quiz_id: number
         }
@@ -208,6 +213,7 @@ export type Database = {
           created_at?: string
           id?: number
           image?: string | null
+          order?: number | null
           question_text?: string
           quiz_id?: number
         }
@@ -333,6 +339,48 @@ export type Database = {
         }
         Relationships: []
       }
+      user_answers: {
+        Row: {
+          answer: string | null
+          id: number
+          input_question_id: number | null
+          is_true: boolean | null
+          multiple_choice_id: number | null
+          user_id: string
+        }
+        Insert: {
+          answer?: string | null
+          id?: number
+          input_question_id?: number | null
+          is_true?: boolean | null
+          multiple_choice_id?: number | null
+          user_id: string
+        }
+        Update: {
+          answer?: string | null
+          id?: number
+          input_question_id?: number | null
+          is_true?: boolean | null
+          multiple_choice_id?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_answers_input_question_id_fkey"
+            columns: ["input_question_id"]
+            isOneToOne: false
+            referencedRelation: "input_questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_answers_multiple_choice_id_fkey"
+            columns: ["multiple_choice_id"]
+            isOneToOne: false
+            referencedRelation: "multiple_choice_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -341,6 +389,21 @@ export type Database = {
       create_profile_after_signup: {
         Args: Record<PropertyKey, never>
         Returns: undefined
+      }
+      get_combined_questions: {
+        Args: {
+          p_quiz_id: string
+        }
+        Returns: {
+          id: string
+          created_at: string
+          question_text: string
+          quiz_id: string
+          image: string
+          order: number
+          true_answer: string
+          question_type: string
+        }[]
       }
       get_user_profile: {
         Args: Record<PropertyKey, never>
