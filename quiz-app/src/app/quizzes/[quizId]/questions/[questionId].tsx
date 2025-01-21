@@ -101,6 +101,7 @@ const Quiz = () => {
       setIndex((prevIndex) => prevIndex + 1);
     } else {
       setQuizCompleted(true);
+      console.log("Inserting quiz attempt with:", { userId, quizId, score });
 
       if (userId) {
         const success = await insertQuizAttempt(userId, quizId!, score);

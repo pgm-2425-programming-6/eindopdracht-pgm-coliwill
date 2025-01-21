@@ -2,17 +2,22 @@ import { supabase } from "@/lib/supabase";
 
 
 export const insertQuizAttempt = async (userId: string, quizId: string, score: number) => {
-  const { data, error } = await supabase
-    .from("quiz_attempt")
-    .insert([{ user_id: userId, quiz_id: quizId, score }]);
+  try {
+    const { data, error } = await supabase
+      .from("quiz_attempts")
+      .insert([{ user_id: userId, quiz_id: quizId, score }]);
 
-  if (error) {
-    console.error("Error inserting quiz attempt:", error.message);
-    return false;
+    if (error) {
+      console.error("Error inserting quiz attempt:", error.message);
+      return { success: false, error: error.message };
+    }
+
+    console.log("Inserted quiz attempt:", data);
+    return { success: true, data };
+  } catch (err) {
+    console.error("Unexpected error inserting quiz attempt:", err);
+    return { success: false, error: err.message };
   }
-
-  console.log("Quiz attempt inserted:", data);
-  return true;
 };
 
 export const getAllQuizAttempts = async () => {

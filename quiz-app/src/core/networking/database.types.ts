@@ -257,21 +257,18 @@ export type Database = {
           quiz_id: number | null
           score: number | null
           user_id: string | null
-          username: string | null
         }
         Insert: {
           id?: number
           quiz_id?: number | null
           score?: number | null
           user_id?: string | null
-          username?: string | null
         }
         Update: {
           id?: number
           quiz_id?: number | null
           score?: number | null
           user_id?: string | null
-          username?: string | null
         }
         Relationships: [
           {
