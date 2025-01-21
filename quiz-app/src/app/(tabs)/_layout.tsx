@@ -24,6 +24,7 @@ const RootLayout = () => {
         <View style={styles.container}>
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="leaderboard" options={{ headerShown: false }} />
             <Stack.Screen
               name="(achievements)/achievements"
               options={{ headerShown: false }}
@@ -37,6 +38,7 @@ const RootLayout = () => {
               name="(profile)/updateProfile"
               options={{ headerShown: false }}
             />
+
           </Stack>
           {/* Conditionally render the NavBar */}
           {!noNavBarScreens.includes(currentRoute) && <NavBar />}

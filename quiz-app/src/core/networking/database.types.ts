@@ -251,24 +251,27 @@ export type Database = {
         }
         Relationships: []
       }
-      quiz_attempt: {
+      quiz_attempts: {
         Row: {
           id: number
           quiz_id: number | null
           score: number | null
           user_id: string | null
+          username: string | null
         }
         Insert: {
           id?: number
           quiz_id?: number | null
           score?: number | null
           user_id?: string | null
+          username?: string | null
         }
         Update: {
           id?: number
           quiz_id?: number | null
           score?: number | null
           user_id?: string | null
+          username?: string | null
         }
         Relationships: [
           {
@@ -314,7 +317,6 @@ export type Database = {
       }
       settings: {
         Row: {
-          created_at: string
           id: number
           sound: boolean
           text_to_speech: boolean | null
@@ -322,7 +324,6 @@ export type Database = {
           vibrations: boolean
         }
         Insert: {
-          created_at?: string
           id?: number
           sound?: boolean
           text_to_speech?: boolean | null
@@ -330,7 +331,6 @@ export type Database = {
           vibrations?: boolean
         }
         Update: {
-          created_at?: string
           id?: number
           sound?: boolean
           text_to_speech?: boolean | null

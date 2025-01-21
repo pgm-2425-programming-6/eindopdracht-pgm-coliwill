@@ -26,7 +26,7 @@ const NavBar = () => {
         />
       </Pressable>
 
-      <Pressable onPress={() => console.log("Leaderboard pressed")}>
+      <Pressable onPress={() => router.navigate("/leaderboard")}>
         <CrownIcon
           width={40}
           height={30}

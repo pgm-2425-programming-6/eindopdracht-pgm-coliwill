@@ -19,6 +19,7 @@ import { supabase } from "@/lib/supabase";
 import { variables } from "@/style/theme";
 import Button from "@/components/design/Button/Button";
 import { useRouter } from "expo-router/build/hooks";
+import * as Speech from "expo-speech";
 
 const Quiz = () => {
   const searchParams = useSearchParams();
@@ -27,9 +28,9 @@ const Quiz = () => {
   const [inputAnswer, setInputAnswer] = useState("");
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [timeLeft, setTimeLeft] = useState(10000); 
-  const [score, setScore] = useState(0); 
-  const [correctAnswers, setCorrectAnswers] = useState(0); 
+  const [timeLeft, setTimeLeft] = useState(10000);
+  const [score, setScore] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -74,7 +75,7 @@ const Quiz = () => {
       if (isAnswerCorrect) {
         const questionScore = calculateQuestionScore();
         setScore((prevScore) => prevScore + questionScore);
-        setCorrectAnswers((prev) => prev + 1); 
+        setCorrectAnswers((prev) => prev + 1);
       }
       setIsCorrect(isAnswerCorrect);
       setIsAnswerSubmitted(true);
@@ -85,7 +86,7 @@ const Quiz = () => {
     if (isCorrect) {
       const questionScore = calculateQuestionScore();
       setScore((prevScore) => prevScore + questionScore);
-      setCorrectAnswers((prev) => prev + 1); // Increment correct answers
+      setCorrectAnswers((prev) => prev + 1);
     }
     setIsCorrect(isCorrect);
     setIsAnswerSubmitted(true);
@@ -101,7 +102,6 @@ const Quiz = () => {
     } else {
       setQuizCompleted(true);
 
-      // Insert quiz attempt into the database
       if (userId) {
         const success = await insertQuizAttempt(userId, quizId!, score);
         if (success) {
@@ -122,6 +122,18 @@ const Quiz = () => {
     };
     fetchUserId();
   }, []);
+
+  useEffect(() => {
+    if (currentQuestion?.question_text) {
+      Speech.speak(currentQuestion.question_text, {
+        language: "en-US",
+        pitch: 1,
+        rate: 1,
+        onDone: () => console.log("Finished reading the question."),
+        onError: (err) => console.error("Error during speech:", err),
+      });
+    }
+  }, [currentQuestion]);
 
   useEffect(() => {
     if (timeLeft <= 0 && !isAnswerSubmitted) {
@@ -235,7 +247,9 @@ const Quiz = () => {
                         <Text style={styles.incorrectText}>
                           Incorrect! Proceed to the next question.
                         </Text>
-                        <Text>Correct answer was {currentQuestion.true_answer}</Text>
+                        <Text>
+                          Correct answer was {currentQuestion.true_answer}
+                        </Text>
                       </>
                     )}
                   </>

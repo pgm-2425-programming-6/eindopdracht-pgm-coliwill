@@ -14,3 +14,16 @@ export const insertQuizAttempt = async (userId: string, quizId: string, score: n
   console.log("Quiz attempt inserted:", data);
   return true;
 };
+
+export const getAllQuizAttempts = async () => {
+  const { data, error } = await supabase
+    .from("quiz_attempts")
+    .select("*");
+
+  if (error) {
+    console.error("Error fetching all quiz attempts:", error.message);
+    return null;
+  }
+
+  return data;
+}
